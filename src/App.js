@@ -48,7 +48,6 @@ const App = () => {
       setPassword('')
       const bloglist = await blogService.getAll()
       bloglist.sort(function (a, b) {
-        console.log("we sorting")
         if (a.likes > b.likes) {
           return -1
         }

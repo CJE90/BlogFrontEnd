@@ -19,9 +19,17 @@ const Blog = ({ blog }) => {
     borderWidth: 1,
     marginBottom: 5
   }
+  const removeBlog = async () => {
+    const message = `Remove blog ${blog.title} by ${blog.author}?`
+    const userResponse = window.confirm(message)
+    if (userResponse) {
+      const request = await blogService.remove(blog.id)
+      console.log(request)
+    }
+  }
 
   const addLike = async () => {
-    const response = await blogService.update(blog.id, { title: blog.title, author: blog.author, url: blog.url, likes: blog.likes + 1, user: blog.user._id })
+    await blogService.update(blog.id, { title: blog.title, author: blog.author, url: blog.url, likes: blog.likes + 1, user: blog.user._id })
   }
   return (
     <div>
@@ -35,7 +43,8 @@ const Blog = ({ blog }) => {
           Title: {blog.title} <button onClick={toggleVisibility}>Hide Details</button><br />
           Author: {blog.author}<br />
           Url: {blog.url}<br />
-          Likes: {blog.likes} <button onClick={addLike}>Like</button>
+          Likes: {blog.likes} <button onClick={addLike}>Like</button><br />
+          <button onClick={removeBlog}>Delete Blog</button>
         </div>
       </div>
     </div>
