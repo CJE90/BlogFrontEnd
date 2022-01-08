@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
@@ -13,6 +13,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState(null)
 
+  const blogFormRef = useRef();
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
@@ -77,7 +78,7 @@ const App = () => {
       console.log(response)
       setBlogs(blogs.concat(response))
       setMessage(`New blog added \nTitle: ${blogObject.title}\nAuthor: ${blogObject.author}`)
-
+      blogFormRef.current.toggleVisibility()
     } catch (exception) {
       setMessage('new blog not added')
     }
@@ -85,7 +86,7 @@ const App = () => {
   }
   const blogsForm = () => {
     return (
-      <Togglable buttonLabel="Create New Blog">
+      <Togglable buttonLabel="Create New Blog" ref={blogFormRef}>
         <BlogForm createBlog={addBlog} />
       </Togglable>
     )
