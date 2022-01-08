@@ -46,7 +46,18 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-      setBlogs(await blogService.getAll())
+      const bloglist = await blogService.getAll()
+      bloglist.sort(function (a, b) {
+        console.log("we sorting")
+        if (a.likes > b.likes) {
+          return -1
+        }
+        if (a.likes < b.likes) {
+          return 1
+        }
+        return 0
+      })
+      setBlogs(bloglist)
       displayMessage('Log in Successful')
     } catch (exception) {
       displayMessage('Wrong Credentials')
