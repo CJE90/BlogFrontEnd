@@ -32,10 +32,10 @@ const Blog = ({ blog }) => {
     await blogService.update(blog.id, { title: blog.title, author: blog.author, url: blog.url, likes: blog.likes + 1, user: blog.user._id })
   }
   return (
-    <div>
+    <div >
       < div style={hideWhenVisible} className={'blogDetails'} >
-        <div style={blogStyle}>
-          Title: {blog.title} Author: {blog.author} <button onClick={toggleVisibility}>View Details</button>
+        <div style={blogStyle} className='blogHiddenDetails'>
+          Title: {blog.title} Author: {blog.author} <button onClick={toggleVisibility} className='showDetailsBtn'>View Details</button>
         </div>
       </div >
       <div style={showWhenVisible} className={'blogDetails'}>
